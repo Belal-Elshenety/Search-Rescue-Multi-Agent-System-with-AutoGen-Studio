@@ -27,7 +27,6 @@ Below is a diagram illustrating the hierarchy and roles within the system, along
   - Drug information analysis.
   - Terrain data retrieval.
   - Emergency hospital localization.
-```markdown
 
 ---
 
@@ -64,3 +63,98 @@ Below is a diagram illustrating the hierarchy and roles within the system, along
    autogenstudio ui
    ```
 
+## Uploading and Configuring Objects in AutoGen Studio
+
+After launching AutoGen Studio, you must upload and configure the objects (models, agents, skills, and workflows) to fully set up the system. Each object type has its own setup requirements, outlined below:
+
+---
+
+### 1. Models
+Models are the backbone of your system. They require API keys to function properly.
+
+#### Steps:
+1. Navigate to the **Models** section in AutoGen Studio.
+2. Click **Upload** and select the JSON file for the model (e.g., `models/*.json`).
+3. After uploading, open the model configuration in AutoGen Studio.
+4. Add the required API keys for the model under the **API Key** section.
+   - Gemini: Through [Google AI Studio](https://aistudio.google.com/app/) or [Google Cloud Console](https://console.cloud.google.com)
+   - Llama 3.1: Through [Groq Dev Console](https://console.groq.com)
+5. Save the model configuration.
+
+---
+
+### 2. Skills
+Skills are specific functionalities that agents can utilize. These also require secrets like API keys to function.
+
+#### Steps:
+1. Navigate to the **Skills** section.
+2. Click **Upload** and select the JSON file for the skill (e.g., `skills/*.json`).
+3. Open each skill and add the required API keys under the **Secrets** section
+    -  fetch_terrain_data: OPENTOPO_API_KEY from [OpenTopography](https://opentopography.org/), and GOOGLE_API_KEY, which is a Google Maps Key from [Google Cloud Console](https://console.cloud.google.com)
+    - Google_API_Key: Google Maps Key from [Google Cloud Console](https://console.cloud.google.com)
+    - SERPER_API_KEY: Serper API Key from [Serper](https://serper.dev/)
+4. Save the skill configuration.
+
+---
+
+### 3. Agents
+Agents represent the roles in the Search & Rescue system. Each agent must have its subordinate agents and skills manually configured.
+
+#### Steps:
+1. Navigate to the **Agents** section.
+2. Click **Upload** and select the JSON file for the agent (e.g., `agents/*.json`).
+3. Open each agent configuration and:
+   - Add subordinate agents manually (if applicable).
+   - Add skills (if applicable).
+   - Ensure that all necessary dependencies are connected, as outlined in the project diagram.
+4. Save the agent configuration.
+5. Note: Agents are **not launched automatically**. You will need to manually launch them after configuration.
+
+#### Agent Configuration Table
+
+| **Agent**            | **Subordinate Agents**                                         | **Implemented Skills**         |
+|-----------------------|---------------------------------------------------------------|---------------------------------|
+| Incident Commander    | Logistics Section Chief, Operations Section Chief, Planning Section Chief, Safety Officer |                                 |
+| Logistics Section Chief | Medical Team Lead, Rescue Team Lead, Search Team Lead       |                                 |
+| Operations Section Chief | Medical Team Lead, Rescue Team Lead, Search Team Lead, Planning Section Chief |                                 |
+| Planning Section Chief |                                                               |                                 |
+| Safety Officer        | Medical Team Lead, Rescue Team Lead, Search Team Lead         |                                 |
+| Communication Unit    | Logistics Section Chief, Operations Section Chief, Planning Section Chief |                                 |
+| Search Team Lead      |                                                               | fetch_terrain_data             |
+| Rescue Team Lead      |                                                               |                                 |
+| Medical Team Lead     |                                                               | get_nearest_hospitals, drug_side_effects |
+
+---
+
+### 4. Workflows
+Workflows define the interactions between agents and skills. These must be configured with specific agents.
+
+#### Steps:
+1. Navigate to the **Workflows** section.
+2. Click **Upload** and select the JSON file for the workflow (e.g., `workflows/*.json`).
+3. Open the workflow and:
+   - Add the **UserProxy Agent** as the initiator.
+   - Add the **Incident Commander** as the receiver.
+   - Ensure all required agents and skills are properly linked within the workflow.
+4. Save the workflow.
+
+---
+
+### Summary of Configurations
+
+| **Object Type** | **Configuration Details**                                   |
+|------------------|------------------------------------------------------------|
+| Models           | Add API keys in the secrets section.                       |
+| Skills           | Add API keys in the secrets section.                       |
+| Agents           | Add subordinate agents, implemented skills, and launch them manually. |
+| Workflows        | Add UserProxy as initiator and Incident Commander as receiver. |
+
+---
+
+### Notes
+- Each object type must be uploaded in the correct category.
+- Ensure all API keys are valid and correctly placed in their respective sections.
+- Follow the table above for a quick overview of configuration steps.
+- Refer to the project diagram for agent dependencies and relationships.
+
+By following these steps, you will have the project fully configured in AutoGen Studio.
