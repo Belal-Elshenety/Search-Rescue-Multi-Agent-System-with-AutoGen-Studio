@@ -16,7 +16,7 @@ Additionally, the project integrates **three specialized skills** for the agents
 Below is a diagram illustrating the hierarchy and roles within the system, along with their interdependencies:
 
 ![Search & Rescue Hierarchy](./docs/AgenticSystemDesign.png)
-
+[Link to diagram template](https://orgpad.info/s/yVGFiV-h52l?template=true): Use this template to create and customize your own diagram.
 ---
 
 ### **Key Features**
