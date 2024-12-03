@@ -91,8 +91,8 @@ Skills are specific functionalities that agents can utilize. These also require 
 2. Click **Upload** and select the JSON file for the skill (e.g., `skills/*.json`).
 3. Open each skill and add the required API keys under the **Secrets** section
     -  fetch_terrain_data: OPENTOPO_API_KEY from [OpenTopography](https://opentopography.org/), and GOOGLE_API_KEY, which is a Google Maps Key from [Google Cloud Console](https://console.cloud.google.com)
-    - Google_API_Key: Google Maps Key from [Google Cloud Console](https://console.cloud.google.com)
-    - SERPER_API_KEY: Serper API Key from [Serper](https://serper.dev/)
+    - get_nearest_hospitals: Google_API_Key, Google Maps Key from [Google Cloud Console](https://console.cloud.google.com)
+    - drug_side_effects: SERPER_API_KEY, Serper API Key from [Serper](https://serper.dev/)
 4. Save the skill configuration.
 
 ---
